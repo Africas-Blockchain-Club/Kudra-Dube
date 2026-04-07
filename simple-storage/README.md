@@ -1,66 +1,19 @@
-## Foundry
+# SimpleStorage
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A foundational Solidity contract built as part of a structured study program toward a junior blockchain developer role.
 
-Foundry consists of:
+The contract covers core Solidity concepts written from memory, including state variables, constructors, custom errors, events, access control, and ownership transfer.
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+**What the contract does:**
 
-## Documentation
+- Stores a number on-chain, restricted to the contract owner
+- Emits an event recording who stored a value and what value was stored
+- Allows ownership to be transferred, with the old and new owner logged on-chain
+- Rejects unauthorised callers using a custom error that returns the caller's address
 
-https://book.getfoundry.sh/
+**Concepts demonstrated:**
 
-## Usage
+`state variables` `constructor` `msg.sender` `events` `emit` `custom errors` `revert` `access control` `ownership transfer`
 
-### Build
+---
 
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
