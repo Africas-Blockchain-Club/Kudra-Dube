@@ -1,4 +1,4 @@
-###SimpleStorage###
+***SimpleStorage***
 
 A foundational Solidity contract built as part of a structured study program toward a junior blockchain developer role.
 Contracts are written from memory as part of a Socratic study method — no copy-pasting, no AI-generated code.
