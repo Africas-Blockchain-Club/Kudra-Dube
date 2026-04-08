@@ -8,4 +8,4 @@ Ownable: parent contract handling ownership tracking, access control, and owners
 SimpleStorage: child contract inheriting from Ownable, storing and retrieving a number on-chain restricted to the owner
 
 Concepts demonstrated:
-**state variables** **constructor** **msg.sender** **events emit custom errors revert access control ownership transfer inheritance**
+**state variables, constructor, msg.sender, events, emit, custom errors, revert, access control, ownership, transfer, inheritance**
