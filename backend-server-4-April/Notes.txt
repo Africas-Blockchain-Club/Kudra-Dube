@@ -1,0 +1,61 @@
+In 2026, pnpm has become the industry favorite over npm because it’s significantly faster and saves massive amounts of disk space.
+
+How to use pnpm (instead of npm)
+If you want to try what your classmate was talking about, here is how you use it:
+
+1. Install it globally:
+
+Bash
+npm install -g pnpm
+2. Initialize a project:
+Instead of npm init, use:
+
+Bash
+pnpm init
+3. Install a package (like Express):
+Instead of npm install express, use:
+
+Bash
+pnpm add express
+4. Run your app:
+Instead of node index.js, you can use:
+
+Bash
+pnpm start
+
+### How to start the project after completing index.mjs? ###
+
+1. Edit package.json to be:
+
+{
+  "type": "module",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
+
+// "yarn@4.13.0": yarn should not be on the package.json. 
+// "type": "module" should be at the top level where it belongs.
+
+2. pnpm install
+
+3.node index.mjs // this is our main entry file and we run it.
+
+4. pnpm add -D nodemon // installs it as a "Dev Dependency". We only need nodemon while you are writing code
+
+5. How to run it? 
+
+5.1 Open your package.json and add a "dev" script. It should look like this:
+
+JSON
+"scripts": {
+  "start": "node index.mjs",
+  "dev": "nodemon index.mjs"
+}
+
+5.2 Now, you just type this in your terminal:
+
+Bash
+pnpm dev
+
+5.3 Start is by running npx nodemon index.mjs

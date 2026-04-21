@@ -12,10 +12,3 @@ docs/
 
 # Dotenv file
 .env
-
-# Forge dependencies
-lib/
-node_modules/
-.pnp.cjs
-.yarn/
-.pnpm/

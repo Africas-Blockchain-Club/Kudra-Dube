@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ABC NFT</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+    button { padding: 10px 20px; margin: 8px 4px; cursor: pointer; }
+    #status { margin-top: 16px; padding: 10px; background: #f0f0f0; border-radius: 4px; word-break: break-all; }
+  </style>
+</head>
+<body>
+  <h2>ABC NFT Login</h2>
+
+  <button id="connectBtn">Connect Wallet</button>
+  <p id="walletAddress">Not connected</p>
+
+  <button id="signInBtn" >Sign In with NFT</button>
+
+  <div id="status">Status: idle</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.0/dist/ethers.umd.min.js"></script>
+  <script>
+    const API = "http://localhost:5501";
+    let signer;
+
+    const status = (msg) => document.getElementById("status").textContent = "Status: " + msg;
+
+    document.getElementById("connectBtn").onclick = async () => {
+      if (!window.ethereum) return status("MetaMask not found");
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
+      signer = await provider.getSigner();
+      const addr = await signer.getAddress();
+      document.getElementById("walletAddress").textContent = "Connected: " + addr;
+      document.getElementById("signInBtn").disabled = false;
+      status("Wallet connected");
+    }; 
+
+    document.getElementById("signInBtn").onclick = async () => {
+      if (!signer) return status("Connect wallet first");
+      try {
+        // 1. Get message from backend
+        status("Fetching sign-in message...");
+        const { message } = await fetch(`${API}/api/message`).then(r => r.json());
+
+        // 2. Ask user to sign it
+        status("Please sign the message in MetaMask...");
+        const signature = await signer.signMessage(message);
+
+        // 3. Send to backend to verify NFT ownership
+        status("Verifying...");
+        const result = await fetch(`${API}/api/verify`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message, signature })
+        }).then(r => r.json());
+
+        if (result.access) {
+          status(`✅ Access granted! Welcome, ${result.address}`);
+        } else {
+          status(`❌ Access denied: ${result.reason}`);
+        }
+      } catch (e) {
+        status("Error: " + e.message);
+      }
+    };
+  </script>
+</body>
+</html>
